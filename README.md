@@ -20,8 +20,8 @@ Membuat aplikasi untuk menampilkan dan membuat Post.
 
 Terdiri dari 2 halaman
 1. Halaman List Post
-> Menampilkan List dari Post. List dapat di filter berdasarkan category, post_datetime, atau keyword (optional). Data dapat dibuat mock dan disimpan di localStorage. Post dapat di edit dan akan di redirect ke halaman create_post
+> Menampilkan List dari Post. _List dapat di filter berdasarkan category, post_datetime, atau keyword (optional)._ Data dapat dibuat mock dan disimpan di localStorage. Post dapat di edit dan akan di redirect ke halaman create_post
 2. Halaman Create Post
-> Menampilkan form berisi 4 field, yaitu author, post_description, post_datetime, dan category. Kriteria Field: author merupakan nama pembuat post, maksimal 20 karakter, dan terdiri dari huruf dan spasi. post_description merupakan konten dari post tersebut. maksimal 100 karakter. post_datetime field disabled dan selalu terisi tanggal dan waktu sekarang dengan format seperti 21 Feb 2021 11:00 PM. category dari post tersebut. Multivalue, minimal ada satu kategori terpilih (optional). Validasi setiap submit
+> Menampilkan form berisi 4 field, yaitu author, post_description, post_datetime, dan _category (optional)_. Kriteria Field: author merupakan nama pembuat post, maksimal 20 karakter, dan terdiri dari huruf dan spasi. post_description merupakan konten dari post tersebut, maksimal 100 karakter. post_datetime field disabled dan selalu terisi tanggal dan waktu sekarang dengan format seperti 21 Feb 2021 11:00 PM. _Category dari post tersebut, multivalue, minimal ada satu kategori terpilih (optional)_. Validasi setiap submit
 
-> Pergantian halaman menggunakan React-Router
+> _Pergantian halaman menggunakan React-Router (optional)_ 
