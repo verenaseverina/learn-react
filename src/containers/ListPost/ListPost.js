@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styles from './ListPost.module.css'
+import {useHistory} from 'react-router-dom'
 
 const TableHeader = () => {
     return (
@@ -24,7 +25,7 @@ const TableBody = (props) => {
                 <td>{p.dateTime}</td>
                 <td>{p.category}</td>
                 <td>
-                    <button>Edit</button>
+                    <button onClick={() => props.redirect(index)}>Edit</button>
                     <button onClick={() => props.delPost(index)}>Delete</button>
                 </td>
             </tr>
@@ -37,7 +38,7 @@ const TableBody = (props) => {
 
 class ListPost extends Component {
     render() {
-        const {postData, removePost} = this.props
+        const {postData, removePost, redirect} = this.props
 
         return (
             <div style={styles.listPost}>
@@ -46,7 +47,7 @@ class ListPost extends Component {
                 <div className="table-area">
                     <table>
                         <TableHeader />
-                        <TableBody post={postData} delPost={removePost}/>
+                        <TableBody post={postData} delPost={removePost} redirect={redirect}/>
                     </table>
                 </div>
             </div>
