@@ -32,11 +32,7 @@ class App extends Component {
 
   handleEdit = (index, post) => {
     const {listPost} = this.state
-    const newPost = {}
-
-
-    
-
+    // const newPost = {}
   }
 
   deletePost = (index) => {
