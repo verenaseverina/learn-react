@@ -17,9 +17,17 @@ class TestingWorld extends Component {
     }
 
     getDate = () => {
-        let date = new Date().toLocaleString()
+        var d = new Date();
+        var n = d.toString();
+        var c = d.toLocaleString();
+        let [un, use5] = c.split(",");
+        let [time,numbTime,textTime] = use5.split(" ");
+        let [hour,min,sec] = numbTime.split(":");
+        let [word,use2,use1,use3,use4] = n.split(" ");
+        let dateTemplate = use1+' '+use2+' '+use3+' '+hour+':'+min+' '+textTime;
+  
         this.setState({
-            dateTime: date
+            dateTime: dateTemplate
         })
     }
 
@@ -35,36 +43,51 @@ class TestingWorld extends Component {
         this.setState(this.initialState)
     }
 
+    editForm = () => {
+        
+    }
+
 
     render() {
         const {author,desc,dateTime,category} = this.state
-        const {authorProp, descProp, dateTimeProp, categoryProp} = ''
+        let authorProp = '', descProp = '', dateTimeProp = '', categoryProp = ''
+
+        if(this.props.location.state){
+            const s = this.props.location.state
+            authorProp = s.author
+            descProp = s.desc
+            dateTimeProp = s.dateTime
+            categoryProp = s.category
+        }
 
         return (
             <div>
                 <h1>Create Any post !</h1>
-                <h1>{this.props.location.state ? this.props.location.state.transfer : 'state transfer null'}</h1>
                 {/* Form */}
                 <div className={style.formContainer}>
                     <form>
                         <label htmlFor="author">Author : </label>
-                        <input id="author" name="author" type="text" value={author} onChange={this.handleChange}/>
+                        <input id="author" name="author" type="text" value={authorProp === '' ? author : authorProp} 
+                        onChange={this.handleChange}/>
 
                         <label htmlFor="desc">Description : </label>
-                        <textarea id="desc" name="desc" rows='4' cols='30' value={desc} onChange={this.handleChange}/>
+                        <textarea id="desc" name="desc" rows='4' cols='30' value={descProp === '' ? desc : descProp} 
+                        onChange={this.handleChange}/>
 
                         <label for="dateTime">Post Date : </label>
-                        <input id="dateTime" name="dateTime" type="text" value={dateTime} disabled/>
+                        <input id="dateTime" name="dateTime" type="text" value={dateTimeProp === '' ? dateTime : dateTimeProp} disabled/>
 
                         <label for="category">Category : </label>
-                        <select id="category" name="category" form="categoryForm" value={category} onChange={this.handleChange}>
+                        <select id="category" name="category" form="categoryForm" 
+                        value={categoryProp === '' ? category : categoryProp } onChange={this.handleChange}>
                             <option value="Science">Science</option>
-                            <option value="Computer">Computer</option>
+                            <option value="Geography">Geography</option>
                             <option value="Space">Space</option>
                             <option value="Philosophy">Philosophy</option>
                         </select>
 
-                        <input type='button' value='submit' onClick={this.submitForm}/>
+                        {this.props.location.state ? <input type="button" value="Edit"/> : 
+                        <input type='button' value='submit' onClick={this.submitForm}/> }
                     </form>
                 </div>
             </div>

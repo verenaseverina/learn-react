@@ -5,6 +5,7 @@ import ListPost from './containers/ListPost/ListPost'
 import CreatePost from './containers/CreatePost/CreatePost'
 import Header from './components/Header/Header'
 import React, { Component } from 'react'
+
 class App extends Component {
   state = {
     listPost: [
@@ -29,8 +30,13 @@ class App extends Component {
     ]
   }
 
-  redirectCreatePost = (index) => {
+  handleEdit = (index, post) => {
+    const {listPost} = this.state
+    const newPost = {}
+
+
     
+
   }
 
   deletePost = (index) => {
