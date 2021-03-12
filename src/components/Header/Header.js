@@ -10,7 +10,7 @@ export default function () {
                     <NavLink to="/">List Post</NavLink>
                 </li>
                 <li >
-                    <NavLink to="/create">Create Post</NavLink>
+                    <NavLink to="/createPost">Create Post</NavLink>
                 </li>
             </ul>
         </header>

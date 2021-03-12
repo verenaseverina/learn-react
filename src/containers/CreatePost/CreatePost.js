@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import style from './CreatePost.module.css'
+import {withRouter} from 'react-router'
 
 class TestingWorld extends Component {
     initialState = {
@@ -37,11 +38,12 @@ class TestingWorld extends Component {
 
     render() {
         const {author,desc,dateTime,category} = this.state
+        const {authorProp, descProp, dateTimeProp, categoryProp} = ''
 
         return (
             <div>
                 <h1>Create Any post !</h1>
-                <h1>{this.state.date}</h1>
+                <h1>{this.props.location.state ? this.props.location.state.transfer : 'state transfer null'}</h1>
                 {/* Form */}
                 <div className={style.formContainer}>
                     <form>
@@ -70,4 +72,4 @@ class TestingWorld extends Component {
     }
 }
 
-export default TestingWorld
+export default withRouter(TestingWorld)

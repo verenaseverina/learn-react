@@ -5,11 +5,8 @@ import ListPost from './containers/ListPost/ListPost'
 import CreatePost from './containers/CreatePost/CreatePost'
 import Header from './components/Header/Header'
 import React, { Component } from 'react'
-import {useHistory} from 'react-router-dom'
-
 class App extends Component {
   state = {
-    history: useHistory(),
     listPost: [
       {
         author: 'Ghozi',
@@ -33,7 +30,7 @@ class App extends Component {
   }
 
   redirectCreatePost = (index) => {
-    this.history.push('/createPost')
+    
   }
 
   deletePost = (index) => {
@@ -59,7 +56,7 @@ class App extends Component {
         <Header />
         <Switch>
           <Route path="/" exact>
-            <ListPost postData={listPost} removePost={this.deletePost} redirect={this.redirectCreatePost}/>
+            <ListPost postData={listPost} removePost={this.deletePost} />
           </Route>
           <Route path="/createPost">
             <CreatePost handleSubmit={this.handleSubmit} />

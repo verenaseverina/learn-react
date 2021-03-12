@@ -17,6 +17,7 @@ const TableHeader = () => {
 }
 
 const TableBody = (props) => {
+    const history = useHistory()
     const rows = props.post.map((p,index) => {
         return (
             <tr key={index}>
@@ -25,13 +26,22 @@ const TableBody = (props) => {
                 <td>{p.dateTime}</td>
                 <td>{p.category}</td>
                 <td>
-                    <button onClick={() => props.redirect(index)}>Edit</button>
+                    <button 
+                    onClick={({author=p.author, desc=p.desc, dateTime=p.dateTime, category=p.category}) => history.push({
+                        pathname: '/createPost',
+                        state: {
+                            author: author,
+                            desc: desc,
+                            dateTime: dateTime,
+                            category: category
+                        }
+                    })}
+                    >Edit</button>
                     <button onClick={() => props.delPost(index)}>Delete</button>
                 </td>
             </tr>
         )
     })
-
     return <tbody>{rows}</tbody>
 }
 
