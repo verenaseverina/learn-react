@@ -31,8 +31,21 @@ class App extends Component {
   }
 
   handleEdit = (index, post) => {
-    const {listPost} = this.state
-    // const newPost = {}
+    // const {listPostMut} = this.state
+    this.setState( state => {
+      const newPost = state.listPost.map((pos, idx) => {
+        if(index === idx) {
+          pos.author = post.author
+          pos.desc = post.desc
+          pos.dateTime = post.descTime
+          pos.category = post.category
+        }
+      })
+
+      return {
+        listPost: newPost
+      }
+    }) 
   }
 
   deletePost = (index) => {
