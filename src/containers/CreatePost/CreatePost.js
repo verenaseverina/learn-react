@@ -7,13 +7,17 @@ class TestingWorld extends Component {
         author: '',
         desc: '',
         category: 'science',
-        dateTime: ''
+        dateTime: '',
+        validation: {
+            authorValid: false,
+            descValid: false
+        }
     }
 
     state = this.initialState
 
     componentDidMount = () => {
-        this.getDate()
+        this.getFormatDate()
         if(this.props.location.state){
             const newState = this.props.location.state
             this.setState({
@@ -25,7 +29,7 @@ class TestingWorld extends Component {
         }
     }
 
-    getDate = () => {
+    getFormatDate = () => {
         var d = new Date();
         var n = d.toString();
         var c = d.toLocaleString();
@@ -42,6 +46,37 @@ class TestingWorld extends Component {
 
     handleChange = (event) => {
         const {name, value} = event.target
+        let validAuthor = this.state.validation.author
+        let validDesc = this.state.validation.desc
+
+
+        //Validation Logic On Progress
+        switch(name){
+            case 'author' :
+                if(value.length > 20){
+                    validAuthor = false
+                    this.setState({
+                        validation : {
+                            authorValid: validAuthor,
+                            descValid: validDesc
+                        }
+                    })
+                }
+                break
+
+            case 'desc' :
+                if(value.length > 100){
+                    validDesc = false
+                    this.setState({
+                        validation: {
+                            authorValid : validAuthor,
+                            descValid : validDesc
+                        }
+                    })
+                }
+                break      
+        }
+
         this.setState({
             [name]: value
         })
@@ -63,6 +98,8 @@ class TestingWorld extends Component {
         return (
             <div>
                 <h1>Create Any post !</h1>
+                {this.state.validation.author ? <p style={{color: 'red'}}>Please Fill Author Name with the correct input</p> : ''}
+                {this.state.validation.desc ? <p style={{color: 'red'}}>Please Fill Description with the correct input</p> : ''}
                 {/* Form */}
                 <div className={style.formContainer}>
                     <form>
