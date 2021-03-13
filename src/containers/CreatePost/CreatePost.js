@@ -44,7 +44,8 @@ class TestingWorld extends Component {
     }
 
     editForm = () => {
-        
+        this.props.handleEdit(this.props.location.state.index, this.state)
+        this.setState(this.initialState)
     }
 
 
@@ -86,7 +87,8 @@ class TestingWorld extends Component {
                             <option value="Philosophy">Philosophy</option>
                         </select>
 
-                        {this.props.location.state ? <input type="button" value="Edit"/> : 
+                        {this.props.location.state ? 
+                        <input type="button" value="Edit" onClick={this.editForm}/> : 
                         <input type='button' value='submit' onClick={this.submitForm}/> }
                     </form>
                 </div>

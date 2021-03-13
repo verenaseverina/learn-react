@@ -74,7 +74,7 @@ class App extends Component {
             <ListPost postData={listPost} removePost={this.deletePost} />
           </Route>
           <Route path="/createPost">
-            <CreatePost handleSubmit={this.handleSubmit} />
+            <CreatePost handleSubmit={this.handleSubmit} handlleEdit={this.handleEdit}/>
           </Route>
         </Switch>
     </div>
