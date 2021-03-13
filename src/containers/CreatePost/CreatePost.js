@@ -14,6 +14,15 @@ class TestingWorld extends Component {
 
     componentDidMount = () => {
         this.getDate()
+        if(this.props.location.state){
+            const newState = this.props.location.state
+            this.setState({
+                author: newState.author,
+                desc: newState.desc,
+                dateTime: newState.dateTime,
+                category: newState.category,
+            })
+        }
     }
 
     getDate = () => {
@@ -48,19 +57,9 @@ class TestingWorld extends Component {
         this.setState(this.initialState)
     }
 
-
     render() {
         const {author,desc,dateTime,category} = this.state
-        let authorProp = '', descProp = '', dateTimeProp = '', categoryProp = ''
-
-        if(this.props.location.state){
-            const s = this.props.location.state
-            authorProp = s.author
-            descProp = s.desc
-            dateTimeProp = s.dateTime
-            categoryProp = s.category
-        }
-
+        
         return (
             <div>
                 <h1>Create Any post !</h1>
@@ -68,19 +67,19 @@ class TestingWorld extends Component {
                 <div className={style.formContainer}>
                     <form>
                         <label htmlFor="author">Author : </label>
-                        <input id="author" name="author" type="text" value={authorProp === '' ? author : authorProp} 
+                        <input id="author" name="author" type="text" value={author} 
                         onChange={this.handleChange}/>
 
                         <label htmlFor="desc">Description : </label>
-                        <textarea id="desc" name="desc" rows='4' cols='30' value={descProp === '' ? desc : descProp} 
+                        <textarea id="desc" name="desc" rows='4' cols='30' value={desc} 
                         onChange={this.handleChange}/>
 
-                        <label for="dateTime">Post Date : </label>
-                        <input id="dateTime" name="dateTime" type="text" value={dateTimeProp === '' ? dateTime : dateTimeProp} disabled/>
+                        <label htmlFor="dateTime">Post Date : </label>
+                        <input id="dateTime" name="dateTime" type="text" value={dateTime} disabled/>
 
-                        <label for="category">Category : </label>
+                        <label htmlFor="category">Category : </label>
                         <select id="category" name="category" form="categoryForm" 
-                        value={categoryProp === '' ? category : categoryProp } onChange={this.handleChange}>
+                        value={category} onChange={this.handleChange}>
                             <option value="Science">Science</option>
                             <option value="Geography">Geography</option>
                             <option value="Space">Space</option>

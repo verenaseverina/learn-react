@@ -31,16 +31,22 @@ class App extends Component {
   }
 
   handleEdit = (index, post) => {
+    
     // const {listPostMut} = this.state
     this.setState( state => {
       const newPost = state.listPost.map((pos, idx) => {
         if(index === idx) {
           pos.author = post.author
           pos.desc = post.desc
-          pos.dateTime = post.descTime
+          pos.dateTime = post.dateTime
           pos.category = post.category
+          return pos
+        }else{
+          return pos
         }
       })
+      
+      console.log(newPost)
 
       return {
         listPost: newPost
@@ -74,7 +80,7 @@ class App extends Component {
             <ListPost postData={listPost} removePost={this.deletePost} />
           </Route>
           <Route path="/createPost">
-            <CreatePost handleSubmit={this.handleSubmit} handlleEdit={this.handleEdit}/>
+            <CreatePost handleSubmit={this.handleSubmit} handleEdit={this.handleEdit}/>
           </Route>
         </Switch>
     </div>

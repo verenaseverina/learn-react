@@ -27,10 +27,10 @@ const TableBody = (props) => {
                 <td>{p.category}</td>
                 <td>
                     <button 
-                    onClick={({author=p.author, desc=p.desc, dateTime=p.dateTime, category=p.category},index) => history.push({
+                    onClick={({author=p.author, desc=p.desc, dateTime=p.dateTime, category=p.category, idx=index}) => history.push({
                         pathname: '/createPost',
                         state: {
-                            index: index,
+                            index: idx,
                             author: author,
                             desc: desc,
                             dateTime: dateTime,
