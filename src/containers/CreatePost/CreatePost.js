@@ -111,29 +111,37 @@ class TestingWorld extends Component {
                 {/* Form */}
                 <div className={style.formContainer}>
                     <form>
-                        <label htmlFor="author">Author : </label>
-                        <input id="author" name="author" type="text" value={author} 
-                        onChange={this.handleChange}/>
+                        <div className={style.formItem}>
+                            <label htmlFor="author">Author : </label>
+                            <input id="author" name="author" type="text" value={author} 
+                            onChange={this.handleChange}/>
+                        </div>
 
-                        <label htmlFor="desc">Description : </label>
-                        <textarea id="desc" name="desc" rows='4' cols='30' value={desc} 
-                        onChange={this.handleChange}/>
+                        <div className={style.formItem}>
+                            <label htmlFor="desc">Description : </label>
+                            <textarea id="desc" name="desc" rows='4' cols='30' value={desc} 
+                            onChange={this.handleChange}/>
+                        </div>
 
-                        <label htmlFor="dateTime">Post Date : </label>
-                        <input id="dateTime" name="dateTime" type="text" value={dateTime} disabled/>
+                        <div className={style.formItem}>
+                            <label htmlFor="dateTime">Post Date : </label>
+                            <input id="dateTime" name="dateTime" type="text" value={dateTime} disabled/>
+                        </div>
 
-                        <label htmlFor="category">Category : </label>
-                        <select id="category" name="category" form="categoryForm" 
-                        value={category} onChange={this.handleChange}>
-                            <option value="Science">Science</option>
-                            <option value="Geography">Geography</option>
-                            <option value="Space">Space</option>
-                            <option value="Philosophy">Philosophy</option>
-                        </select>
+                        <div className={style.formItem}>
+                            <label htmlFor="category">Category : </label>
+                            <select id="category" name="category" form="categoryForm" 
+                            value={category} onChange={this.handleChange}>
+                                <option value="Science">Science</option>
+                                <option value="Geography">Geography</option>
+                                <option value="Space">Space</option>
+                                <option value="Philosophy">Philosophy</option>
+                            </select>
+                        </div>
 
                         {this.props.location.state ? 
                         <input type="button" value="Edit" onClick={this.editForm}/> : 
-                        <input type='button' value='submit' onClick={this.submitForm}/> }
+                        <input type='button' value='submit' onClick={this.submitForm} className={style.inputBtn}/> }
                     </form>
                 </div>
             </div>

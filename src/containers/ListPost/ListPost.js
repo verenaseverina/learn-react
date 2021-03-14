@@ -31,7 +31,7 @@ const TableBody = (props) => {
                 <td>{p.desc}</td>
                 <td>{p.dateTime}</td>
                 <td>{p.category}</td>
-                <td>
+                <td style={{display: "flex", justifyContent:"space-around"}}>
                     <button 
                     onClick={({author=p.author, desc=p.desc, dateTime=p.dateTime, category=p.category, idx=index}) => history.push({
                         pathname: '/createPost',
@@ -71,7 +71,6 @@ class ListPost extends Component {
         return (
             <div className={styles.listPost}>
                 <h1>List Post</h1>
-                <h1 style={{color:'pink'}}>To Do Next : Create Filter & save data on localStorage</h1>
                 <div className={styles.filterArea}>
                     <input id="search" name="search" type="text" placeholder="search desc or author"
                     onChange={(e) => this.searchSpace(e)}/>
