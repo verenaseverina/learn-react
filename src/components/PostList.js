@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Form from "./Form";
 import FormFilter from "./FormFilter";
+import Header from "./Header";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 class PostList extends Component {
   state = {
@@ -38,37 +40,46 @@ class PostList extends Component {
   };
   render() {
     return (
-      <div className="form-post">
-        <Form onAddOrEdit={this.onAddOrEdit} currentIndex={this.state.currentIndex} list={this.state.list} />
-        <h1>Post List</h1>
-        <FormFilter setSearch={this.setSearch} />
-        {this.state.list
-          .filter((blog) => {
-            if (this.state.search === "") {
-              return blog;
-            } else if (blog.category.toLowerCase().includes(this.state.search.toLowerCase())) {
-              return blog;
-            }
-          })
-          .map((blog, index) => (
-            <div key={index} className="blog-post">
-              <div className="title">
-                <div>
-                  <h3>
-                    {blog.author} - {blog.category}
-                  </h3>
-                </div>
-                <div>
-                  <button onClick={() => this.onEdit(index)}>Edit</button>
-                </div>
-              </div>
-              <p>
-                {blog.description}
-                <small> - {blog.date}</small>
-              </p>
-            </div>
-          ))}
-      </div>
+      <Router>
+        <Header />
+        <div className="form-post">
+          <Switch>
+            <Route exact path="/add-post">
+              <Form onAddOrEdit={this.onAddOrEdit} currentIndex={this.state.currentIndex} list={this.state.list} />
+            </Route>
+            <Route path="/">
+              <h1>Post List</h1>
+              <FormFilter setSearch={this.setSearch} />
+              {this.state.list
+                .filter((blog) => {
+                  if (this.state.search === "") {
+                    return blog;
+                  } else if (blog.category.toLowerCase().includes(this.state.search.toLowerCase())) {
+                    return blog;
+                  }
+                })
+                .map((blog, index) => (
+                  <div key={index} className="blog-post">
+                    <div className="title">
+                      <div>
+                        <h3>
+                          {blog.author} - {blog.category}
+                        </h3>
+                      </div>
+                      <div>
+                        <button onClick={() => this.onEdit(index)}>Edit</button>
+                      </div>
+                    </div>
+                    <p>
+                      {blog.description}
+                      <small> - {blog.date}</small>
+                    </p>
+                  </div>
+                ))}
+            </Route>
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }

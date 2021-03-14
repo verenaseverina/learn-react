@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 class FormFilter extends Component {
   setSearchP = (e) => {
-    console.log(e.target.value);
     this.props.setSearch(e.target.value);
   };
   render() {

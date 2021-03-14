@@ -34,11 +34,22 @@ class Form extends Component {
   };
   inputSubmit = (e) => {
     e.preventDefault();
-    this.props.onAddOrEdit(this.state);
+    if (!this.state.author || this.state.author.length > 20 || this.state.author.indexOf(" ") < 1) {
+      alert("Author Name is Invalid");
+      return;
+    } else if (this.state.description > 100 || !this.state.description) {
+      alert("Description is Invalid");
+      return;
+    } else if (this.state.category === "") {
+      alert("Category is Invalid");
+      return;
+    } else {
+      this.props.onAddOrEdit(this.state);
+    }
   };
   render() {
     return (
-      <div className="form-post">
+      <div>
         <h2>Input Post</h2>
         <form onSubmit={this.inputSubmit}>
           <div>
