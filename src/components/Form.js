@@ -8,7 +8,7 @@ class Form extends Component {
   //   e.preventDefault();
   // };
   returnListPosts() {
-    if (this.props.currentIndex == -1) {
+    if (this.props.currentIndex === -1) {
       const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
       const today = new Date();
       const todayFix = `${today.getDate()} ${months[today.getMonth()]} ${today.getFullYear()} ${today.getHours()}:${today.getMinutes() < 10 ? "0" : ""}${today.getMinutes()}`;
@@ -23,7 +23,7 @@ class Form extends Component {
     }
   }
   componentDidUpdate(prev) {
-    if (prev.currentIndex != this.props.currentIndex || prev.list.length != this.props.list.length) {
+    if (prev.currentIndex !== this.props.currentIndex || prev.list.length !== this.props.list.length) {
       this.setState({ ...this.returnListPosts() });
     }
   }

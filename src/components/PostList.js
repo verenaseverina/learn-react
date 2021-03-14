@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import Form from "./Form";
+import FormFilter from "./FormFilter";
 
 class PostList extends Component {
   state = {
     currentIndex: -1,
     list: this.returnList(),
+    search: "",
   };
   returnList() {
     if (localStorage.getItem("posts") == null) {
@@ -14,7 +16,7 @@ class PostList extends Component {
   }
   onAddOrEdit = (data) => {
     var list = this.returnList();
-    if (this.state.currentIndex == -1) {
+    if (this.state.currentIndex === -1) {
       list.push(data);
       localStorage.setItem("posts", JSON.stringify(list));
       this.setState({ list, currentIndex: -2 });
@@ -29,29 +31,43 @@ class PostList extends Component {
       currentIndex: index,
     });
   };
+  setSearch = (data) => {
+    this.setState({
+      search: data,
+    });
+  };
   render() {
     return (
       <div className="form-post">
         <Form onAddOrEdit={this.onAddOrEdit} currentIndex={this.state.currentIndex} list={this.state.list} />
         <h1>Post List</h1>
-        {this.state.list.map((blog, index) => (
-          <div key={index} className="blog-post">
-            <div className="title">
-              <div>
-                <h3>
-                  {blog.author} - {blog.category}
-                </h3>
+        <FormFilter setSearch={this.setSearch} />
+        {this.state.list
+          .filter((blog) => {
+            if (this.state.search === "") {
+              return blog;
+            } else if (blog.category.toLowerCase().includes(this.state.search.toLowerCase())) {
+              return blog;
+            }
+          })
+          .map((blog, index) => (
+            <div key={index} className="blog-post">
+              <div className="title">
+                <div>
+                  <h3>
+                    {blog.author} - {blog.category}
+                  </h3>
+                </div>
+                <div>
+                  <button onClick={() => this.onEdit(index)}>Edit</button>
+                </div>
               </div>
-              <div>
-                <button onClick={() => this.onEdit(index)}>Edit</button>
-              </div>
+              <p>
+                {blog.description}
+                <small> - {blog.date}</small>
+              </p>
             </div>
-            <p>
-              {blog.description}
-              <small> - {blog.date}</small>
-            </p>
-          </div>
-        ))}
+          ))}
       </div>
     );
   }
