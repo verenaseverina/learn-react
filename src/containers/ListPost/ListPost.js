@@ -46,16 +46,30 @@ const TableBody = (props) => {
     return <tbody>{rows}</tbody>
 }
 
-
 class ListPost extends Component {
+    state = {
+        filter: {
+            category: 'science',
+            search: ''
+        }
+    }
+
     render() {
         const {postData, removePost, redirect} = this.props
 
         return (
-            <div style={styles.listPost}>
-                <h1>List Post</h1>    
-                {/* Put Table In Below */}
-                <div className="table-area">
+            <div className={styles.listPost}>
+                <h1>List Post</h1>
+                <h1 style={{color:'pink'}}>To Do Next : Create Filter & save data on localStorage</h1>
+                <div className={styles.filterArea}>
+                    <form className={styles.formArea}>
+                        <input id="search" name="search" type="text" placeholder="search description"
+                        onChange={this.handleChange}/>
+
+                        <input type="button" value="Filter" />
+                    </form>
+                </div>    
+                <div className={styles.tableArea}>
                     <table>
                         <TableHeader />
                         <TableBody post={postData} delPost={removePost} redirect={redirect}/>

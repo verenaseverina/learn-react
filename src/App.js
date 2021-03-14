@@ -13,25 +13,55 @@ class App extends Component {
         author: 'Ghozi',
         desc : 'Hello Guys this is my first post',
         dateTime: '21 Feb 2021 11:00 PM',
-        category: 'Science'
+        category: 'Science',
+        validation: {
+          authorValid: false,
+          descValid: false
+        }
       },
       {
         author: 'Jeffrey',
         desc : 'Secondary post for testing post',
         dateTime: '22 Feb 2021 15:00 PM',
-        category: 'Philosophy'
+        category: 'Philosophy',
+        validation: {
+          authorValid: false,
+          descValid: false
+        }
       },
       {
         author: 'Garin',
         desc : 'Third post for testing post',
         dateTime: '01 March 2021 08:00 AM',
-        category: 'Physics'
+        category: 'Physics',
+        validation: {
+          authorValid: false,
+          descValid: false
+        }
       }
     ]
   }
 
+  componentDidMount(){
+    //Save into localStorage
+    if(localStorage.getItem('listPost') === null){
+      localStorage.setItem('listPost', JSON.stringify(this.state.listPost))
+    }else{
+      const post = JSON.parse(localStorage.getItem('listPost'))
+      this.setState({
+        listPost: post
+      })
+    }
+
+    //Remove Item (Debugging Mode)
+    // localStorage.removeItem('listPost')
+  }
+
+  componentDidUpdate(){
+    localStorage.setItem('listPost', JSON.stringify(this.state.listPost))
+  }
+
   handleEdit = (index, post) => {
-    
     // const {listPostMut} = this.state
     this.setState( state => {
       const newPost = state.listPost.map((pos, idx) => {
@@ -44,10 +74,7 @@ class App extends Component {
         }else{
           return pos
         }
-      })
-      
-      console.log(newPost)
-
+      })      
       return {
         listPost: newPost
       }
@@ -68,6 +95,8 @@ class App extends Component {
       listPost: [...this.state.listPost, post]
     })
   }
+
+
 
   render() {
     const {listPost} = this.state

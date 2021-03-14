@@ -46,34 +46,38 @@ class TestingWorld extends Component {
 
     handleChange = (event) => {
         const {name, value} = event.target
-        let validAuthor = this.state.validation.author
-        let validDesc = this.state.validation.desc
+        let validAuthor = this.state.validation.authorValid
+        let validDesc = this.state.validation.descValid
 
-
-        //Validation Logic On Progress
         switch(name){
             case 'author' :
                 if(value.length > 20){
+                    validAuthor = true
+                }else{
                     validAuthor = false
-                    this.setState({
-                        validation : {
-                            authorValid: validAuthor,
-                            descValid: validDesc
-                        }
-                    })
                 }
+
+                this.setState({
+                    validation : {
+                        authorValid: validAuthor,
+                        descValid: validDesc
+                    }
+                })
                 break
 
             case 'desc' :
                 if(value.length > 100){
+                    validDesc = true
+                }else{
                     validDesc = false
-                    this.setState({
-                        validation: {
-                            authorValid : validAuthor,
-                            descValid : validDesc
-                        }
-                    })
                 }
+
+                this.setState({
+                    validation : {
+                        authorValid: validAuthor,
+                        descValid: validDesc
+                    }
+                })
                 break      
         }
 
@@ -83,6 +87,9 @@ class TestingWorld extends Component {
     }
     
     submitForm = () => {
+        if(this.state.validation.authorValid || this.state.validation.descValid){
+            return
+        }
         this.props.handleSubmit(this.state)
         this.setState(this.initialState)
     }
@@ -98,8 +105,9 @@ class TestingWorld extends Component {
         return (
             <div>
                 <h1>Create Any post !</h1>
-                {this.state.validation.author ? <p style={{color: 'red'}}>Please Fill Author Name with the correct input</p> : ''}
-                {this.state.validation.desc ? <p style={{color: 'red'}}>Please Fill Description with the correct input</p> : ''}
+                {this.state.validation.authorValid ?
+                 <p style={{color: 'red'}}>Author Cannot more than 20 Char</p> : ''}
+                {this.state.validation.descValid ? <p style={{color: 'red'}}>Description Cannot more than 100 Char</p> : ''}
                 {/* Form */}
                 <div className={style.formContainer}>
                     <form>
