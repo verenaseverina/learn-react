@@ -18,7 +18,13 @@ const TableHeader = () => {
 
 const TableBody = (props) => {
     const history = useHistory()
-    const rows = props.post.map((p,index) => {
+    const rows = props.post.filter((data)=>{
+        if(props.search == null)
+            return data
+        else if(data.desc.toLowerCase().includes(props.search.toLowerCase()) || data.author.toLowerCase().includes(props.search.toLowerCase())){
+            return data
+        }
+      }).map((p,index) => {
         return (
             <tr key={index}>
                 <td>{p.author}</td>
@@ -48,10 +54,15 @@ const TableBody = (props) => {
 
 class ListPost extends Component {
     state = {
-        filter: {
-            category: 'science',
-            search: ''
-        }
+        search: ''
+    }
+
+    searchSpace = (event) =>{
+        let keyword = event.target.value;
+    
+        this.setState({
+            search:keyword
+        })
     }
 
     render() {
@@ -62,17 +73,13 @@ class ListPost extends Component {
                 <h1>List Post</h1>
                 <h1 style={{color:'pink'}}>To Do Next : Create Filter & save data on localStorage</h1>
                 <div className={styles.filterArea}>
-                    <form className={styles.formArea}>
-                        <input id="search" name="search" type="text" placeholder="search description"
-                        onChange={this.handleChange}/>
-
-                        <input type="button" value="Filter" />
-                    </form>
+                    <input id="search" name="search" type="text" placeholder="search desc or author"
+                    onChange={(e) => this.searchSpace(e)}/>
                 </div>    
                 <div className={styles.tableArea}>
                     <table>
                         <TableHeader />
-                        <TableBody post={postData} delPost={removePost} redirect={redirect}/>
+                        <TableBody post={postData} delPost={removePost} redirect={redirect} search={this.state.search}/>
                     </table>
                 </div>
             </div>

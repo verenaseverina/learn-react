@@ -53,6 +53,8 @@ class App extends Component {
       })
     }
 
+    // localStorage.removeItem('listPost')
+
     //Remove Item (Debugging Mode)
     // localStorage.removeItem('listPost')
   }
@@ -62,7 +64,6 @@ class App extends Component {
   }
 
   handleEdit = (index, post) => {
-    // const {listPostMut} = this.state
     this.setState( state => {
       const newPost = state.listPost.map((pos, idx) => {
         if(index === idx) {
@@ -95,8 +96,6 @@ class App extends Component {
       listPost: [...this.state.listPost, post]
     })
   }
-
-
 
   render() {
     const {listPost} = this.state
