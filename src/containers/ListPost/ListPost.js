@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styles from './ListPost.module.css'
-import {useHistory} from 'react-router-dom'
+import {useHistory, withRouter} from 'react-router-dom'
 
 const TableHeader = () => {
     return (
@@ -18,33 +18,23 @@ const TableHeader = () => {
 
 const TableBody = (props) => {
     const history = useHistory()
+
     const rows = props.post.filter((data)=>{
         if(props.search == null)
             return data
         else if(data.desc.toLowerCase().includes(props.search.toLowerCase()) || data.author.toLowerCase().includes(props.search.toLowerCase())){
             return data
         }
-      }).map((p,index) => {
+      }).map((p) => {
         return (
-            <tr key={index}>
+            <tr key={p.index}>
                 <td>{p.author}</td>
                 <td>{p.desc}</td>
                 <td>{p.dateTime}</td>
                 <td>{p.category}</td>
                 <td style={{display: "flex", justifyContent:"space-around"}}>
-                    <button 
-                    onClick={({author=p.author, desc=p.desc, dateTime=p.dateTime, category=p.category, idx=index}) => history.push({
-                        pathname: '/createPost',
-                        state: {
-                            index: idx,
-                            author: author,
-                            desc: desc,
-                            dateTime: dateTime,
-                            category: category
-                        }
-                    })}
-                    >Edit</button>
-                    <button onClick={() => props.delPost(index)}>Delete</button>
+                    <button onClick={props.redirect.bind(this, p)}>Edit</button>
+                    <button onClick={() => props.delPost(p.index)}>Delete</button>
                 </td>
             </tr>
         )
@@ -65,8 +55,22 @@ class ListPost extends Component {
         })
     }
 
+    redirectEditPost = (post) => {
+        const {history} = this.props
+        history.push({
+            pathname: '/createPost',
+            state: {
+                idx: post.index,
+                author: post.author,
+                desc: post.desc,
+                dateTime: post.dateTime,
+                category: post.category
+            }
+        })
+    }
+
     render() {
-        const {postData, removePost, redirect} = this.props
+        const {postData, removePost} = this.props
 
         return (
             <div className={styles.listPost}>
@@ -78,7 +82,8 @@ class ListPost extends Component {
                 <div className={styles.tableArea}>
                     <table>
                         <TableHeader />
-                        <TableBody post={postData} delPost={removePost} redirect={redirect} search={this.state.search}/>
+                        <TableBody post={postData} delPost={removePost} search={this.state.search} 
+                        redirect={this.redirectEditPost}/>
                     </table>
                 </div>
             </div>
@@ -86,4 +91,4 @@ class ListPost extends Component {
     }
 }
 
-export default ListPost
+export default withRouter(ListPost)

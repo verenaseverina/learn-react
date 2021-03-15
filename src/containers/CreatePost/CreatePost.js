@@ -4,27 +4,33 @@ import {withRouter} from 'react-router'
 
 class TestingWorld extends Component {
     initialState = {
+        index: this.props.currIndex,
         author: '',
         desc: '',
         category: 'science',
-        dateTime: '',
+        dateTime: ''
+    }
+
+    state = {
+        mainState: this.initialState,
         validation: {
             authorValid: false,
             descValid: false
         }
     }
 
-    state = this.initialState
-
     componentDidMount = () => {
         this.getFormatDate()
         if(this.props.location.state){
             const newState = this.props.location.state
             this.setState({
-                author: newState.author,
-                desc: newState.desc,
-                dateTime: newState.dateTime,
-                category: newState.category,
+                mainState:{
+                    index: newState.idx,
+                    author: newState.author,
+                    desc: newState.desc,
+                    dateTime: newState.dateTime,
+                    category: newState.category
+                }
             })
         }
     }
@@ -40,7 +46,10 @@ class TestingWorld extends Component {
         let dateTemplate = use1+' '+use2+' '+use3+' '+hour+':'+min+' '+textTime;
   
         this.setState({
-            dateTime: dateTemplate
+            mainState: {
+                ...this.state.mainState,
+                dateTime: dateTemplate
+            }
         })
     }
 
@@ -51,7 +60,7 @@ class TestingWorld extends Component {
 
         switch(name){
             case 'author' :
-                if(value.length > 20){
+                if(value.length > 20 || !value.match(/^[a-zA-Z]+\s*$/)){
                     validAuthor = true
                 }else{
                     validAuthor = false
@@ -82,7 +91,10 @@ class TestingWorld extends Component {
         }
 
         this.setState({
-            [name]: value
+            mainState:{
+                ...this.state.mainState,
+                [name]: value
+            }
         })
     }
     
@@ -90,23 +102,35 @@ class TestingWorld extends Component {
         if(this.state.validation.authorValid || this.state.validation.descValid){
             return
         }
-        this.props.handleSubmit(this.state)
-        this.setState(this.initialState)
+        this.props.handleSubmit(this.state.mainState)
+        this.setState({
+            mainState: this.initialState,
+            validation:{
+                authorValid: false,
+                descValid: false
+            }
+        })
     }
 
     editForm = () => {
-        this.props.handleEdit(this.props.location.state.index, this.state)
-        this.setState(this.initialState)
+        this.props.handleEdit(this.props.location.state.idx, this.state.mainState)
+        this.setState({
+            mainState: this.initialState,
+            validation:{
+                authorValid: false,
+                descValid: false
+            }
+        })
     }
 
     render() {
-        const {author,desc,dateTime,category} = this.state
+        const {author,desc,dateTime,category} = this.state.mainState
         
         return (
             <div>
                 <h1>Create Any post !</h1>
                 {this.state.validation.authorValid ?
-                 <p style={{color: 'red'}}>Author Cannot more than 20 Char</p> : ''}
+                 <p style={{color: 'red'}}>Author Cannot empty/number/more than 20</p> : ''}
                 {this.state.validation.descValid ? <p style={{color: 'red'}}>Description Cannot more than 100 Char</p> : ''}
                 {/* Form */}
                 <div className={style.formContainer}>
