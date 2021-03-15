@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import ListPostPage from './components/ListPostPage'
+import CreatePostPage from './components/CreatePostPage'
+import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <Router>
+    <div className="container">
+      <nav>
+        <ul>
+          <li>
+            <Link to='/ListPostPage'>ListPostPage</Link>
+          </li>
+          <br/>
+          <li>
+            <Link to='/CreatePostPage'>CreatePostPage</Link>
+          </li>
+        </ul>
+      </nav>
     </div>
+      <Switch>
+        <Route path='/ListPostPage' exact component={ListPostPage}/>
+        <Route path='/CreatePostPage' component={CreatePostPage}/>
+      </Switch>
+    </Router>
   );
 }
 

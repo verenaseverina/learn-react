@@ -1,0 +1,28 @@
+#titleList{
+  text-align: center;
+}
+
+.List{
+    margin: 0px auto;
+}
+
+.List table{
+    border-bottom: 1px solid black;
+    border-collapse: collapse;
+    text-align: center
+  }
+
+  .List .headTable th{
+    border-bottom: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+    padding: 40px;
+    font-size: 20px;
+  }
+
+  .List .headTable td{
+    border-bottom: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+    padding: 40px;
+  }
