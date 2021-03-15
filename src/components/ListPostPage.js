@@ -28,6 +28,7 @@ const ListPostPage = () => {
 
     return (
         <div>
+            <h1 id="titleList">List Post</h1>
             <table className='List'>
                 <thead className='headTable'>
                     <tr>

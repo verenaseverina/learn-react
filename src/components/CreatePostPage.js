@@ -22,12 +22,12 @@ const CreatePostPage = () => {
         // const categoryErr = {};
         let isValid = true;
 
-        if(author.trim().length <= 20){
+        if(author.trim().length >= 20){
             authorErr.authorNameShort = "[ 20 Character ]" 
             isValid = false;
         }
 
-        if(post_description.trim().length <= 100){
+        if(post_description.trim().length >= 100){
             post_descriptionErr.post_descriptionShort = "[ 100 Character]"
             isValid = false;
         }
@@ -40,6 +40,7 @@ const CreatePostPage = () => {
     return (
         <div>
             <form onSubmit={onSubmit} className='formCreate'>
+                <h1>Create Post</h1>
                 <label>
                     <input type="text" 
                            name = "author"
