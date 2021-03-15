@@ -1,14 +1,16 @@
 import React, { Component } from "react";
+import { Redirect, useHistory } from "react-router-dom";
 
 class Form extends Component {
   state = {
     ...this.returnListPosts(),
+    redirect: false,
   };
   // const onSubmit = (e) => {
   //   e.preventDefault();
   // };
   returnListPosts() {
-    if (this.props.currentIndex === -1) {
+    if (this.props.currentIndex === "") {
       const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
       const today = new Date();
       const todayFix = `${today.getDate()} ${months[today.getMonth()]} ${today.getFullYear()} ${today.getHours()}:${today.getMinutes() < 10 ? "0" : ""}${today.getMinutes()}`;
@@ -19,7 +21,7 @@ class Form extends Component {
         date: todayFix,
       };
     } else {
-      return this.props.list[this.props.currentIndex];
+      return this.props.list.find((data) => data.date === this.props.currentIndex);
     }
   }
   componentDidUpdate(prev) {
@@ -34,7 +36,7 @@ class Form extends Component {
   };
   inputSubmit = (e) => {
     e.preventDefault();
-    if (!this.state.author || this.state.author.length > 20 || this.state.author.indexOf(" ") < 1) {
+    if (!this.state.author || this.state.author.length > 20 || !this.state.author.match(/^[a-zA-Z]+\s*$/)) {
       alert("Author Name is Invalid");
       return;
     } else if (this.state.description > 100 || !this.state.description) {

@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import Form from "./Form";
 import FormFilter from "./FormFilter";
 import Header from "./Header";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 class PostList extends Component {
   state = {
-    currentIndex: -1,
+    currentIndex: "",
     list: this.returnList(),
     search: "",
   };
@@ -18,14 +18,14 @@ class PostList extends Component {
   }
   onAddOrEdit = (data) => {
     var list = this.returnList();
-    if (this.state.currentIndex === -1) {
+    if (this.state.currentIndex === "") {
       list.push(data);
       localStorage.setItem("posts", JSON.stringify(list));
-      this.setState({ list, currentIndex: -2 });
+      this.setState({ list, currentIndex: "" });
     } else {
-      list[this.state.currentIndex] = data;
+      list[list.indexOf(list.find((data) => data.date === this.state.currentIndex))] = data;
       localStorage.setItem("posts", JSON.stringify(list));
-      this.setState({ list, currentIndex: -1 });
+      this.setState({ list, currentIndex: "" });
     }
   };
   onEdit = (index) => {
@@ -58,8 +58,8 @@ class PostList extends Component {
                     return blog;
                   }
                 })
-                .map((blog, index) => (
-                  <div key={index} className="blog-post">
+                .map((blog) => (
+                  <div key={blog.date} className="blog-post">
                     <div className="title">
                       <div>
                         <h3>
@@ -67,7 +67,9 @@ class PostList extends Component {
                         </h3>
                       </div>
                       <div>
-                        <button onClick={() => this.onEdit(index)}>Edit</button>
+                        <Link to={"/add-post"}>
+                          <button onClick={this.onEdit.bind(this, blog.date)}>Edit</button>
+                        </Link>
                       </div>
                     </div>
                     <p>
