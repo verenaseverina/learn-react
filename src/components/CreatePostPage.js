@@ -5,11 +5,9 @@ const CreatePostPage = () => {
 
     const [author, setAuthor] = useState("");
     const [post_description, setPost_Description] = useState("");
-    // const [category, setCategory] = useState("");
 
     const[authorErr, setAuthorErr] = useState({});
     const [post_descriptionErr, setPost_DescriptionErr] = useState({});
-    // const [categoryErr, setCategoryErr] = useState({});
 
     const onSubmit = (e)=>{
         e.preventDefault();
@@ -19,7 +17,6 @@ const CreatePostPage = () => {
     const formValidation = () =>{
         const authorErr = {};
         const post_descriptionErr = {};
-        // const categoryErr = {};
         let isValid = true;
 
         if(author.trim().length >= 20){
@@ -67,6 +64,11 @@ const CreatePostPage = () => {
                            placeholder='Category'
                            onChange={(e)=>{setCategory(e.target.value)}}/>
                     <br/><br/> */}
+                    {/* <input id="dateTime" name="dateTime" type="text" disabled/> */}
+                    <select id="category" name="category" form="categoryForm">
+                            <option value="Science">Learning</option>
+                            <option value="Geography">Learning and make website</option>
+                    </select>
                 </label>
                 <br/> <br/>
                 <input type="submit" value="Submit" />
