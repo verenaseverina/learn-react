@@ -1,0 +1,32 @@
+.formContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.formItem{
+    display: flex;
+    flex-direction: row;
+    margin: 10px 10px;
+}
+
+.inputBtn{
+    padding: 10px;
+    border: 2px solid pink;
+    background-color: #edffec;
+    border-radius: 10px;
+    width: 5rem;
+}
+
+.inputBtn:hover {
+    background-color: #8e7f7f;
+    border: 2px solid #8e7f7f;
+    color: white;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    justify-content: center;
+    align-items: center;
+}

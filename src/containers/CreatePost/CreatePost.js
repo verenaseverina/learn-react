@@ -1,0 +1,176 @@
+import React, { Component } from 'react'
+import style from './CreatePost.module.css'
+import {withRouter} from 'react-router'
+
+class TestingWorld extends Component {
+    initialState = {
+        index: this.props.currIndex,
+        author: '',
+        desc: '',
+        category: 'science',
+        dateTime: ''
+    }
+
+    state = {
+        mainState: this.initialState,
+        validation: {
+            authorValid: false,
+            descValid: false
+        }
+    }
+
+    componentDidMount = () => {
+        this.getFormatDate()
+        if(this.props.location.state){
+            const newState = this.props.location.state
+            this.setState({
+                mainState:{
+                    index: newState.idx,
+                    author: newState.author,
+                    desc: newState.desc,
+                    dateTime: newState.dateTime,
+                    category: newState.category
+                }
+            })
+        }
+    }
+
+    getFormatDate = () => {
+        var d = new Date();
+        var n = d.toString();
+        var c = d.toLocaleString();
+        let [un, use5] = c.split(",");
+        let [time,numbTime,textTime] = use5.split(" ");
+        let [hour,min,sec] = numbTime.split(":");
+        let [word,use2,use1,use3,use4] = n.split(" ");
+        let dateTemplate = use1+' '+use2+' '+use3+' '+hour+':'+min+' '+textTime;
+  
+        this.setState({
+            mainState: {
+                ...this.state.mainState,
+                dateTime: dateTemplate
+            }
+        })
+    }
+
+    handleChange = (event) => {
+        const {name, value} = event.target
+        let validAuthor = this.state.validation.authorValid
+        let validDesc = this.state.validation.descValid
+
+        switch(name){
+            case 'author' :
+                if(value.length > 20 || !value.match(/^[a-zA-Z]+\s*$/)){
+                    validAuthor = true
+                }else{
+                    validAuthor = false
+                }
+
+                this.setState({
+                    validation : {
+                        authorValid: validAuthor,
+                        descValid: validDesc
+                    }
+                })
+                break
+
+            case 'desc' :
+                if(value.length > 100){
+                    validDesc = true
+                }else{
+                    validDesc = false
+                }
+
+                this.setState({
+                    validation : {
+                        authorValid: validAuthor,
+                        descValid: validDesc
+                    }
+                })
+                break      
+        }
+
+        this.setState({
+            mainState:{
+                ...this.state.mainState,
+                [name]: value
+            }
+        })
+    }
+    
+    submitForm = () => {
+        if(this.state.validation.authorValid || this.state.validation.descValid){
+            return
+        }
+        this.props.handleSubmit(this.state.mainState)
+        this.setState({
+            mainState: this.initialState,
+            validation:{
+                authorValid: false,
+                descValid: false
+            }
+        })
+    }
+
+    editForm = () => {
+        this.props.handleEdit(this.props.location.state.idx, this.state.mainState)
+        this.setState({
+            mainState: this.initialState,
+            validation:{
+                authorValid: false,
+                descValid: false
+            }
+        })
+    }
+
+    render() {
+        const {author,desc,dateTime,category} = this.state.mainState
+        
+        return (
+            <div>
+                <h1>Create Any post !</h1>
+                {this.state.validation.authorValid ?
+                 <p style={{color: 'red'}}>Author Cannot empty/number/more than 20</p> : ''}
+                {this.state.validation.descValid ? <p style={{color: 'red'}}>Description Cannot more than 100 Char</p> : ''}
+                {/* Form */}
+                <div className={style.formContainer}>
+                    <form>
+                        <div className={style.formItem}>
+                            <label htmlFor="author">Author : </label>
+                            <input id="author" name="author" type="text" value={author} 
+                            onChange={this.handleChange}/>
+                        </div>
+
+                        <div className={style.formItem}>
+                            <label htmlFor="desc">Description : </label>
+                            <textarea id="desc" name="desc" rows='4' cols='30' value={desc} 
+                            onChange={this.handleChange}/>
+                        </div>
+
+                        <div className={style.formItem}>
+                            <label htmlFor="dateTime">Post Date : </label>
+                            <input id="dateTime" name="dateTime" type="text" value={dateTime} disabled/>
+                        </div>
+
+                        <div className={style.formItem}>
+                            <label htmlFor="category">Category : </label>
+                            <select id="category" name="category" form="categoryForm" 
+                            value={category} onChange={this.handleChange}>
+                                <option value="Science">Science</option>
+                                <option value="Geography">Geography</option>
+                                <option value="Space">Space</option>
+                                <option value="Philosophy">Philosophy</option>
+                            </select>
+                        </div>
+
+                        {this.props.location.state ? 
+                        <input type="button" value="Edit" onClick={this.editForm}/> : 
+                        <input type='button' value='submit' onClick={this.submitForm} className={style.inputBtn}/> }
+                    </form>
+                </div>
+            </div>
+        )
+    }
+}
+
+export default withRouter(TestingWorld)

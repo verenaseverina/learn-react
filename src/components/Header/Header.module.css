@@ -1,0 +1,16 @@
+header{
+    text-decoration: none;
+    color: #000;
+    
+}
+
+ul{
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    justify-content: end;
+}
+
+li{
+    margin: 0 2rem;
+}
