@@ -66,8 +66,8 @@ const CreatePostPage = () => {
                     <br/><br/> */}
                     {/* <input id="dateTime" name="dateTime" type="text" disabled/> */}
                     <select id="category" name="category" form="categoryForm">
-                            <option value="Science">Learning</option>
-                            <option value="Geography">Learning and make website</option>
+                            <option value="Learning">Learning</option>
+                            <option value="Learning and make website">Learning and make website</option>
                     </select>
                 </label>
                 <br/> <br/>
