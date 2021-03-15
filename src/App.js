@@ -11,7 +11,7 @@ class App extends Component {
     listPost: [
       {
         author: 'Ghozi',
-        desc : 'Hello Guys this is my first post',
+        desc : 'My First Post, testing dummy data',
         dateTime: '21 Feb 2021 11:00 PM',
         category: 'Science',
         validation: {
