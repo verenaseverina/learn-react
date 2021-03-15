@@ -11,10 +11,10 @@ const CreatePostPage = () => {
 
     const onSubmit = (e)=>{
         e.preventDefault();
-        const isValid = formValidation();
+        const isValid = FormValidation();
     }
 
-    const formValidation = () =>{
+    const FormValidation = () =>{
         const authorErr = {};
         const post_descriptionErr = {};
         let isValid = true;
@@ -32,7 +32,9 @@ const CreatePostPage = () => {
         setAuthorErr(authorErr);
         setPost_DescriptionErr(post_descriptionErr);
         return isValid;
+
     }
+
 
     return (
         <div>
@@ -78,3 +80,6 @@ const CreatePostPage = () => {
 }
 
 export default CreatePostPage
+
+
+// onClick={ () => this.setData() }
